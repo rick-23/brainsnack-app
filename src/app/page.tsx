@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { getAllCards } from "./data/storage";
+import { getAllCards } from "@/app/data/card";
 import Card from "./components/Card";
 import { CardType } from "./data/card";
 

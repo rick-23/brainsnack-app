@@ -1,4 +1,3 @@
-// app/add/page.tsx
 "use client";
 import { FormEvent, useState } from "react";
 import { addCard } from "../data/storage";

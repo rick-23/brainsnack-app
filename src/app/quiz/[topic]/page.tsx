@@ -1,8 +1,8 @@
-// app/quiz/[topic]/page.tsx
 "use client";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
-import { getCardsByTopic, updateCardStatus } from "../../data/storage";
+import { getCardsByTopic } from "@/app/data/card";
+import { updateCardStatus } from "../../data/storage";
 import Card from "../../components/Card";
 import { CardType } from "@/app/data/card";
 

@@ -15,7 +15,7 @@ export default function Card({ card, onStatusChange }: CardProps) {
   };
 
   const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    e.stopPropagation(); // prevent flip when clicking dropdown
+    e.stopPropagation();
     if (onStatusChange) {
       onStatusChange(card.id, e.target.value as CardType["status"]);
     }
