@@ -1,0 +1,25 @@
+{
+  "name": "brainsnack-backend",
+  "version": "1.0.0",
+  "description": "The backend layer of the Brainsnack app",
+  "license": "ISC",
+  "author": "rick-23",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "npm run test"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10",
+    "path": "^0.12.7",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "jest": "^30.0.5",
+    "supertest": "^7.1.4"
+  }
+}
