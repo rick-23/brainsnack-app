@@ -1,38 +1,54 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { getAllCards } from "@/app/data/card";
-import Card from "./components/Card";
 import { CardType } from "./data/card";
+import { getTopics, TopicType } from "./data/topic";
+import "./styles/homePage.css";
 
 export default function HomePage() {
   const [statusFilter, setStatusFilter] = useState("");
-
+  const [topics, setTopics] = useState<TopicType[]>([]);
   const cards = getAllCards().filter((card: CardType) =>
     statusFilter ? card.status === statusFilter : true
   );
+  const router = useRouter();
+
+  useEffect(() => {
+    setTopics(getTopics());
+  }, []);
+
+  const handleTopicClick = (topicName: string) => {
+    alert(`Selected Topic: ${topicName}`);
+    router.push(`/topic/${topicName}`);
+  };
+
+  const handleCreateCardClick = () => {
+    router.push("/add-card");
+  };
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1>All Cards</h1>
-
-      <label htmlFor="filter">Filter by status:</label>
-      <select
-        id="filter"
-        value={statusFilter}
-        onChange={(e) => setStatusFilter(e.target.value)}
-        style={{ margin: "1rem 0", display: "block" }}
-      >
-        <option value="">All</option>
-        <option value="completed">Completed</option>
-        <option value="incomplete">Incomplete</option>
-        <option value="review">Review</option>
-      </select>
-
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
-        {cards.map((card: CardType) => (
-          <Card key={card.id} card={card} />
-        ))}
+    <div className="home-container">
+      <h1>Select a Topic:</h1>
+      <div className="topic-buttons">
+        {topics.length === 0 ? (
+          <p>No topics available. Add one first!</p>
+        ) : (
+          topics.map((topic) => (
+            <button
+              key={topic.name}
+              className="topic-button"
+              onClick={() => handleTopicClick(topic.name)}
+            >
+              {topic.name}
+            </button>
+          ))
+        )}
       </div>
+
+      <button className="create-button" onClick={handleCreateCardClick}>
+        Create Flash Card
+      </button>
     </div>
   );
 }
