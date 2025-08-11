@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "title": "React Basics",
+    "topic": "React",
+    "content": "React is a JavaScript library for building user interfaces.",
+    "status": "incomplete"
+  },
+  {
+    "id": "2",
+    "title": "TypeScript Types",
+    "topic": "TypeScript",
+    "content": "TypeScript adds static typing to JavaScript.",
+    "status": "review"
+  },
+  {
+    "id": "3",
+    "title": "useEffect Hook",
+    "topic": "React",
+    "content": "useEffect runs side effects in function components.",
+    "status": "completed"
+  }
+]

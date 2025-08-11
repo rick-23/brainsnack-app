@@ -1,4 +1,4 @@
-import rawCards from "./data.json"; // Static import
+import rawCards from "./cardData.json";
 
 export interface CardType {
   id: string;
