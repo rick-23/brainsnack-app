@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require('uuid');
 const fs = require('fs');
 
 // Path to the cards.json file
-const dbFilePath = path.join(__dirname, '../data/db.json');
+const dbFilePath = path.join(__dirname, '../data/cards.db.json');
 
 const readCards = () => {
     const data = fs.readFileSync(dbFilePath, 'utf8');
