@@ -1,8 +1,9 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { addTopic } from "../data/topic";
 import { validateAddTopicFields } from "../utils/validationUtils";
+import { useTopics } from "../hooks/useTopics";
+import LoadingSpinner from "../components/LoadingSpinner";
 import "../styles/addCard.css";
 
 export default function AddTopicPage() {
@@ -10,6 +11,8 @@ export default function AddTopicPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const router = useRouter();
+
+  const { addTopic, isLoading } = useTopics();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -27,20 +30,26 @@ export default function AddTopicPage() {
       return;
     }
 
-    addTopic({ name: name.trim() });
-    setName("");
-    setError("");
-    setSuccess("Topic added successfully!");
-
-    setTimeout(() => {
-      router.push("/");
-    }, 2000);
+    addTopic.mutate(
+      { name: name.trim() },
+      {
+        onSuccess: () => {
+          setName("");
+          setError("");
+          setSuccess("Topic added successfully!");
+          setTimeout(() => {
+            router.push("/");
+          }, 1500);
+        },
+      }
+    );
   };
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <form onSubmit={handleSubmit}>
       <h1>Add New Topic</h1>
-      {error && <p>{error}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
       {success && <p style={{ color: "green" }}>{success}</p>}
       <input
         name="topic"
@@ -48,7 +57,7 @@ export default function AddTopicPage() {
         value={name}
         onChange={handleChange}
       />
-      <button type="submit" disabled={!name.trim() || !!error}>
+      <button type="submit" disabled={!name.trim() || !!error || isLoading}>
         Add Topic
       </button>
     </form>

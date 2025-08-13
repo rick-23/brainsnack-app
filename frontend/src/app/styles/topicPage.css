@@ -60,3 +60,31 @@
   background: #333;
   cursor: not-allowed;
 }
+
+.topic-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.topic-button {
+  padding: 0.5rem 1rem;
+  background-color: #ececec;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.create-button {
+  padding: 0.6rem 1.2rem;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.create-button:hover {
+  background-color: #005bb5;
+}

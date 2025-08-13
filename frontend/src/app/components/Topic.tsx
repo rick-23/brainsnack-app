@@ -10,7 +10,6 @@ export default function Topic() {
   );
 
   const handleTopicClick = (topicName: string) => {
-    alert(`Selected Topic: ${topicName}`);
     router.push(`/topic/${topicName}`);
   };
 
@@ -18,11 +17,16 @@ export default function Topic() {
     router.push("/addCard");
   };
 
+  const handleAddTopicClick = () => {
+    router.push("/addTopic");
+  };
+
   if (loadingTopics) return <LoadingSpinner />;
 
   return (
     <div>
       <h1>Select a Topic:</h1>
+
       <div className="topic-buttons">
         {topics.length === 0 ? (
           <p>No topics available. Add one first!</p>
@@ -39,9 +43,14 @@ export default function Topic() {
         )}
       </div>
 
-      <button className="create-button" onClick={handleCreateCardClick}>
-        Create Flash Card
-      </button>
+      <div style={{ marginTop: "1.5rem", display: "flex", gap: "1rem" }}>
+        <button className="create-button" onClick={handleCreateCardClick}>
+          Create Flash Card
+        </button>
+        <button className="create-button" onClick={handleAddTopicClick}>
+          Add Topic
+        </button>
+      </div>
     </div>
   );
 }

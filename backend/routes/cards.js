@@ -73,21 +73,29 @@ router.patch('/:id', (req, res) => {
     const { id } = req.params;
     const { title, topic, content, status } = req.body;
 
-    if (!title || !topic || !content || !status) {
-        return res.status(400).json({ message: 'Title, Topic, Content and Status are required' });
-    }
-
     try {
         const cards = readCards();
-        const cardIndex = cards.findIndex(card => card.id === id);
+        const cardIndex = cards.findIndex((card) => card.id === id);
 
         if (cardIndex === -1) {
             return res.status(404).json({ message: 'Card not found' });
         }
 
-        cards[cardIndex] = { ...cards[cardIndex], title, topic, content, status };
+        const existingCard = cards[cardIndex];
+
+        // Update only the provided fields
+        const updatedCard = {
+            ...existingCard,
+            title: title ?? existingCard.title,
+            topic: topic ?? existingCard.topic,
+            content: content ?? existingCard.content,
+            status: status ?? existingCard.status,
+        };
+
+        cards[cardIndex] = updatedCard;
         writeCards(cards);
-        res.json(cards[cardIndex]);
+
+        res.json(updatedCard);
     } catch (error) {
         res.status(500).json({ message: 'Error updating card' });
     }
