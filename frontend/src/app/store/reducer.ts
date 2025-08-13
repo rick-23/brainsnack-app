@@ -3,7 +3,8 @@ import { TopicType } from "../data/topic";
 import { CardType } from "../data/card";
 
 interface MyState {
-  loading: boolean;
+  loadingTopics: boolean;
+  loadingCards: boolean;
   error: string | null;
   cards: CardType[];
   topics: TopicType[];
@@ -12,7 +13,8 @@ interface MyState {
 const initialState: MyState = {
   cards: [],
   topics: [],
-  loading: false,
+  loadingTopics: false,
+  loadingCards: false,
   error: null,
 };
 
@@ -22,15 +24,20 @@ const slicer = createSlice({
   reducers: {
     setCards(state, action) {
       state.cards = action.payload;
-      state.loading = false;
+      state.loadingCards = false;
       state.error = null;
     },
-    setLoading(state) {
-      state.loading = true;
+    setLoadingTopics(state) {
+      state.loadingTopics = true;
+      state.error = null;
+    },
+    setLoadingCards(state) {
+      state.loadingCards = true;
       state.error = null;
     },
     setError(state, action: PayloadAction<string | null>) {
-      state.loading = false;
+      state.loadingCards = false;
+      state.loadingTopics = false;
       state.error = action.payload ? action.payload : null;
     },
     addCard(state, action) {
@@ -41,6 +48,8 @@ const slicer = createSlice({
     },
     setTopics(state, action) {
       state.topics = action.payload;
+      state.loadingTopics = false;
+      state.error = null;
     },
     addTopic(state, action) {
       if (!state.topics.find((topic) => topic.name === action.payload.name)) {
@@ -52,7 +61,8 @@ const slicer = createSlice({
 
 export const {
   setCards,
-  setLoading,
+  setLoadingCards,
+  setLoadingTopics,
   setError,
   addCard,
   removeCard,

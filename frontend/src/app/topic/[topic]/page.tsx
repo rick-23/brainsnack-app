@@ -1,45 +1,49 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "next/navigation";
 import { CardType, getAllCards, updateCardStatus } from "../../data/card";
 import Card from "../../components/Card";
+import { AppDispatch } from "@/app/store/store";
+import { fetchCards } from "@/app/store/fetchCardsAndTopics";
 import "../../styles/topicPage.css";
 
 export default function TopicPage() {
   const { topic } = useParams(); // get topic from URL
-  console.log("Topic name from URL:", topic);
   const topicName = decodeURIComponent(topic as string);
+  const dispatch = useDispatch<AppDispatch>();
 
-  const [cards, setCards] = useState<CardType[]>([]);
-  const [filteredCards, setFilteredCards] = useState<CardType[]>([]);
+  const allCards = useSelector((state: any) => state.brainSnack.cards);
+
   const [filter, setFilter] = useState<
     "all" | "completed" | "incomplete" | "review"
   >("all");
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Load cards
-  useEffect(() => {
-    const allCards = getAllCards(); // assumes getCards returns all cards
-    const topicCards = allCards.filter((card) => card.topic === topicName);
-    setCards(topicCards);
-    setFilteredCards(topicCards);
-  }, [topicName]);
+  const topicCards = useMemo(() => {
+    return allCards.filter((card: CardType) => card.topic === topicName);
+  }, [allCards, topicName]);
 
-  // Filter cards when filter changes
+  const filteredCards = useMemo(() => {
+    if (filter === "all") return topicCards;
+    return topicCards.filter((card: CardType) => card.status === filter);
+  }, [filter, topicCards]);
+
   useEffect(() => {
-    if (filter === "all") {
-      setFilteredCards(cards);
-    } else {
-      setFilteredCards(cards.filter((card) => card.status === filter));
+    if (allCards.length === 0) {
+      dispatch(fetchCards);
     }
+  }, [dispatch, allCards.length]);
+
+  useEffect(() => {
     setCurrentIndex(0);
-  }, [filter, cards]);
+  }, [filter, topicName]);
 
   const handleStatusChange = (id: string, newStatus: CardType["status"]) => {
-    const updated = cards.map((card) =>
+    const updated = topicCards.map((card: CardType) =>
       card.id === id ? { ...card, status: newStatus } : card
     );
-    setCards(updated);
+    // setCards(updated);
     updateCardStatus(id, newStatus);
   };
 

@@ -22,34 +22,63 @@ export default function Card({ card, onStatusChange }: CardProps) {
   };
 
   return (
-    <div className={styles.card} onClick={handleCardClick}>
-      <div className={`${styles.cardInner} ${flipped ? styles.flipped : ""}`}>
-        <div className={styles.front}>
-          <h2>{card.title}</h2>
-          <p>
-            <strong>Topic:</strong> {card.topic}
-          </p>
-          <p>
-            <em>Click to view more</em>
-          </p>
-        </div>
+    <div className={styles.cardWrapper}>
+      <div className={styles.card} onClick={handleCardClick}>
+        <div className={`${styles.cardInner} ${flipped ? styles.flipped : ""}`}>
+          <div className={styles.front}>
+            <h2>{card.title}</h2>
+            <p>
+              <strong>Topic:</strong> {card.topic}
+            </p>
+            <p>
+              <em>Click to view more</em>
+            </p>
+          </div>
 
-        <div className={styles.back}>
-          <h3>{card.title}</h3>
-          <p>{card.content}</p>
-
-          {onStatusChange && (
-            <div style={{ marginTop: "1rem" }}>
-              <label>Status:</label>
-              <select value={card.status} onChange={handleStatusChange}>
-                <option value="incomplete">Incomplete</option>
-                <option value="completed">Completed</option>
-                <option value="review">Review</option>
-              </select>
-            </div>
-          )}
+          <div className={styles.back}>
+            <h3>{card.title}</h3>
+            <p>{card.content}</p>
+          </div>
         </div>
       </div>
+
+      {onStatusChange && (
+        <div className={styles.statusButtons}>
+          {card.status !== "completed" && (
+            <button
+              className={styles.statusButton}
+              onClick={(e) => {
+                e.stopPropagation();
+                onStatusChange(card.id, "completed");
+              }}
+            >
+              Mark as Completed
+            </button>
+          )}
+          {card.status !== "incomplete" && (
+            <button
+              className={styles.statusButton}
+              onClick={(e) => {
+                e.stopPropagation();
+                onStatusChange(card.id, "incomplete");
+              }}
+            >
+              Mark as Incomplete
+            </button>
+          )}
+          {card.status !== "review" && (
+            <button
+              className={styles.statusButton}
+              onClick={(e) => {
+                e.stopPropagation();
+                onStatusChange(card.id, "review");
+              }}
+            >
+              Mark for Review
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 }

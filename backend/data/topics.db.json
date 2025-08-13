@@ -1,0 +1,10 @@
+[
+  { "name": "React" },
+  { "name": "JavaScript" },
+  { "name": "CSS" },
+  { "name": "HTML" },
+  { "name": "TypeScript" },
+  { "name": "Node.js" },
+  { "name": "Express" },
+  { "name": "MongoDB" }
+]

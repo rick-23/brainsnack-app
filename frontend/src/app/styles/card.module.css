@@ -59,3 +59,32 @@
   border-radius: 4px;
   border: 1px solid #ccc;
 }
+
+.cardWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem; /* ensures spacing from the navigation */
+}
+
+.statusButtons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.statusButton {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #4f8cff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.statusButton:hover {
+  background-color: #3772cc;
+}

@@ -1,14 +1,20 @@
-import { setCards, setTopics, setLoading, setError } from "./reducer";
+import {
+  setCards,
+  setTopics,
+  setLoadingCards,
+  setLoadingTopics,
+  setError,
+} from "./reducer";
 import API from "../utils/apiUtils";
 import { AppDispatch } from "./store";
 
 export const fetchCards = async (dispatch: AppDispatch) => {
-  dispatch(setLoading());
+  dispatch(setLoadingCards());
   try {
     const response = await API.get("/api/cards");
+    console.log("Fetched cards:", response.data);
     dispatch(setCards(response.data));
   } catch (error: unknown) {
-    // More robust error typing
     if (error instanceof Error) {
       dispatch(setError(error.message));
     } else {
@@ -18,9 +24,10 @@ export const fetchCards = async (dispatch: AppDispatch) => {
 };
 
 export const fetchTopics = async (dispatch: AppDispatch) => {
-  dispatch(setLoading());
+  dispatch(setLoadingTopics());
   try {
     const response = await API.get("/api/topics");
+    console.log("Fetched topics:", response.data);
     dispatch(setTopics(response.data));
   } catch (error: unknown) {
     if (error instanceof Error) {

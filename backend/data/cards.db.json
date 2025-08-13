@@ -19,5 +19,33 @@
     "topic": "React",
     "content": "useEffect runs side effects in function components.",
     "status": "completed"
+  },
+  {
+    "id": "4",
+    "title": "JavaScript Promises",
+    "topic": "JavaScript",
+    "content": "Promises are used for asynchronous operations in JavaScript.",
+    "status": "incomplete"
+  },
+  {
+    "id": "5",
+    "title": "CSS Flexbox",
+    "topic": "CSS",
+    "content": "Flexbox is a layout model that allows responsive design.",
+    "status": "review"
+  },
+  {
+    "id": "6",
+    "title": "React Hooks",
+    "topic": "React",
+    "content": "React hooks are reusable.",
+    "status": "review"
+  },
+  {
+    "id": "7",
+    "title": "React Redux state management",
+    "topic": "React",
+    "content": "Redux is a global state managment library.",
+    "status": "incomplete"
   }
 ]
